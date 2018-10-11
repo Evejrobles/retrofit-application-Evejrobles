@@ -1,3 +1,4 @@
 <resources>
   <string name="app_name">RetrofitApplication</string>
+  <string name="base_url">http://localhost/</string>
 </resources>

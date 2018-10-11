@@ -1,12 +1,13 @@
 package edu.cnm.deepdive.retrofitapplication;
 
 import android.app.Application;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitApplication extends Application {
 
-  private static final String BASE_URL = "";//TODO Fill in URL
   private static RetrofitApplication instance;
   private Retrofit retrofit;
 
@@ -15,10 +16,14 @@ public class RetrofitApplication extends Application {
     super.onCreate();
     // Setup singleton instance
     instance = this;
+    // Setup GSON
+    Gson gson = new GsonBuilder()
+        // .excludeFieldsWithoutExposeAnnotation() // Uncomment this to require @Expose
+        .create();
     // Setup Retrofit
     retrofit = new Retrofit.Builder()
-        .baseUrl(BASE_URL)
-        .addConverterFactory(GsonConverterFactory.create())
+        .baseUrl(getString(R.string.base_url))
+        .addConverterFactory(GsonConverterFactory.create(gson))
         .build();
   }
 
